@@ -1,4 +1,6 @@
+import sys
 import math
+import os
 
 def solve_quadratic(a: float, b: float, c: float):
     if a == 0:
@@ -20,10 +22,28 @@ def get_float_input(prompt):
     while True:
         try:
             return float(input(prompt))
-        except ValueError as e:
+        except ValueError:
             print(f"Error. Expected a valid real number.")
 
-def main():
+def read_coefficients_from_file(filename):
+    if not os.path.exists(filename):
+        print(f"Error. File '{filename}' does not exist.")
+        sys.exit(1)
+
+    try:
+        with open(filename, "r") as file:
+            line = file.readline().strip()
+            parts = line.split()
+            if len(parts) != 3:
+                raise ValueError("Invalid file format.")
+            
+            a, b, c = map(float, parts)
+            return a, b, c
+    except ValueError:
+        print("Error. Invalid file format.")
+        sys.exit(1)
+
+def interactive_mode():
     print("Quadratic Equation Solver")
     a = get_float_input("a = ")
     while a == 0:
@@ -32,6 +52,14 @@ def main():
     
     b = get_float_input("b = ")
     c = get_float_input("c = ")
+
+    return a, b, c
+
+def main():
+    if len(sys.argv) == 2:
+        a, b, c = read_coefficients_from_file(sys.argv[1])
+    else:
+        a, b, c = interactive_mode()
 
     print(f"Equation is: ({a}) x^2 + ({b}) x + ({c}) = 0")
 
