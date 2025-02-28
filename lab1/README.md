@@ -20,3 +20,5 @@
 <br/>
 <br/>
 Вказання на revert-коміт:
+<br/>
+Зробив revert commit 9e01aed
