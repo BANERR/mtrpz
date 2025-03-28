@@ -30,6 +30,29 @@ class ArrayBasedList:
         cloned_list = ArrayBasedList()
         cloned_list.data = self.data.copy()
         return cloned_list
+    
+    def reverse(self):
+        self.data.reverse()
+
+    def findFirst(self, element):
+        try:
+            return self.data.index(element)
+        except ValueError:
+            return -1
+
+    def findLast(self, element):
+        for i in range(len(self.data) - 1, -1, -1):
+            if self.data[i] == element:
+                return i
+        return -1
+
+    def clear(self):
+        self.data.clear()
+
+    def extend(self, elements):
+        if not isinstance(elements, ArrayBasedList):
+            raise TypeError("Argument must be of type ArrayBasedList")
+        self.data.extend(elements.data)
 
 
     def __str__(self):
@@ -38,7 +61,7 @@ class ArrayBasedList:
 if __name__ == "__main__":
     my_list = ArrayBasedList()
     while True:
-        command = input("Enter command (append, insert, delete, get, deleteAll, clone): ").strip()
+        command = input("Enter command (append, insert, delete, get, deleteAll, clone, findFirst, findLast, reverse, clear, length, exit): ").strip()
         if command == "append":
             value = input("Enter character: ")
             my_list.append(value)
@@ -66,6 +89,22 @@ if __name__ == "__main__":
                 print("Value:", my_list.get(index))
             except IndexError as e:
                 print(e)
+        elif command == "findFirst":
+            value = input("Enter character: ")
+            print("First occurrence index:", my_list.findFirst(value))
+        elif command == "findLast":
+            value = input("Enter character: ")
+            print("Last occurrence index:", my_list.findLast(value))
+        elif command == "reverse":
+            my_list.reverse()
+            print("List reversed.")
+        elif command == "clear":
+            my_list.clear()
+            print("List cleared.")
+        elif command == "length":
+            print("List length:", my_list.length())
+        elif command == "exit":
+            break
         else:
             print("Unknown command.")
         print("Current list:", my_list)
