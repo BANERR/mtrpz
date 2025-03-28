@@ -1,6 +1,7 @@
 class ArrayBasedList:
     def __init__(self):
         self.data = []
+        self.items = self.data  
 
     def length(self):
         return len(self.data)
@@ -28,7 +29,7 @@ class ArrayBasedList:
 
     def clone(self):
         cloned_list = ArrayBasedList()
-        cloned_list.data = self.data.copy()
+        cloned_list.data = self.data[:] 
         return cloned_list
     
     def reverse(self):
@@ -53,7 +54,6 @@ class ArrayBasedList:
         if not isinstance(elements, ArrayBasedList):
             raise TypeError("Argument must be of type ArrayBasedList")
         self.data.extend(elements.data)
-
 
     def __str__(self):
         return str(self.data)
@@ -82,7 +82,8 @@ if __name__ == "__main__":
             value = input("Enter character: ")
             my_list.deleteAll(value)
         elif command == "clone":
-            my_list.clone()
+            cloned = my_list.clone()
+            print("Cloned list:", cloned)
         elif command == "get":
             index = int(input("Enter index: "))
             try:
