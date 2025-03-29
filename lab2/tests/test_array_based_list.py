@@ -12,7 +12,7 @@ class TestArrayBasedList(unittest.TestCase):
 
     def test_append(self):
         self.lst.append('A')
-        self.assertEqual(self.lst.data, ['B'])  # Навмисна помилка (очікуємо 'B' замість 'A')
+        self.assertEqual(self.lst.data, ['A'])
 
     def test_insert(self):
         self.lst.append('A')
